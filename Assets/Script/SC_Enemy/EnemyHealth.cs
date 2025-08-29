@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int maxHealth = 2;
+    [SerializeField] private int maxHealth = 1;
     [SerializeField] private int health;
     [SerializeField] private int onDefeatScore = 5;
 

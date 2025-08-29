@@ -10,7 +10,6 @@ public class Temp_StartRunning : MonoBehaviour
     {
         startRunning.AddListener(GameObject.Find("Player").GetComponent<PlayerStateManager>().StartRunning);
         startRunning.AddListener(GameObject.Find("Player").GetComponent<PlayerHP>().StartRunning);
-        startRunning.AddListener(GameObject.Find("SpeedManager").GetComponent<SpeedManager>().StartRunning);
     }
     
         public void StartRunning()
