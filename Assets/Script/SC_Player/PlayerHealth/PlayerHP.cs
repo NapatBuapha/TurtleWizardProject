@@ -7,22 +7,29 @@ public class PlayerHP : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth = 20f;
     public float health;
-    public float drainRate = 0.1f;
+    //*public float drainRate = 0.1f;
     public bool isFatigue { get; private set; }
     private bool isRunning;
-
+    [SerializeField] private float inviTimes;
+    private bool isInvincibility;
 
     // Start is called before the first frame update
 
     void Start()
     {
+        isInvincibility = false;
         isRunning = false;
         isFatigue = false;
     }
 
     public void getDamage(int damageValue)
     {
-        health -= damageValue;
+        if (!isInvincibility)
+        {
+            health -= damageValue;
+            StartCoroutine(InvincibleStates(inviTimes));
+        }
+        
     }
 
     private void Update()
@@ -37,11 +44,11 @@ public class PlayerHP : MonoBehaviour, IDamageable
     }
 
     // Update is called once per frame
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
         if (!isFatigue && isRunning)
             health -= drainRate;
-    }
+    }*/
 
     public void StartRunning()
     {
@@ -49,4 +56,10 @@ public class PlayerHP : MonoBehaviour, IDamageable
         isRunning = true;
     }
 
+    IEnumerator InvincibleStates(float invincibilityTimes)
+    {
+        isInvincibility = true;
+        yield return new WaitForSeconds(invincibilityTimes);
+        isInvincibility = false;
+    }
 }
