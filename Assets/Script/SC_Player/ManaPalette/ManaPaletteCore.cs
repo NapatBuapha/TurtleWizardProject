@@ -26,11 +26,6 @@ public class ManaPaletteCore : MonoBehaviour
     }
 
 
-    void Update()
-    {
-
-    }
-
     public void AddMana(ManaColor mana)
     {
         if (manaColor[0] != ManaColor.Empty)
@@ -56,10 +51,10 @@ public class ManaPaletteCore : MonoBehaviour
                     red++;
                     break;
                 case ManaColor.Yellow:
-                    red++;
+                    yellow++;
                     break;
                 case ManaColor.Blue:
-                    red++;
+                    blue++;
                     break;
             }
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseBullet : MonoBehaviour
+public class MagicCircle : MonoBehaviour
 {
     [SerializeField] private int damageAmout = 2;
     [SerializeField] private float despawnTime;
@@ -11,7 +11,7 @@ public class BaseBullet : MonoBehaviour
     {
         Destroy(gameObject, despawnTime);
     }
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
         GameObject hitObj = col.gameObject;
 

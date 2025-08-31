@@ -55,9 +55,7 @@ public class State_PlayerJumping : PlayerBaseState
                 {
                     player.SwitchState(player.state_PlayerInAir);
                 }
-
             }
-
     }
 }
 

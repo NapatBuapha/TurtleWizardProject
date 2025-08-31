@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class PlayerStateManager : MonoBehaviour
 {
-    
+
     PlayerBaseState currentState;
     public string playerStat;
     public State_PlayerIdle state_PlayerIdle { get; private set; } = new State_PlayerIdle();
@@ -18,6 +18,8 @@ public class PlayerStateManager : MonoBehaviour
     public State_PlayerFatigue state_PlayerFatigue { get; private set; } = new State_PlayerFatigue();
     public State_PlayerSlide state_PlayerSlide { get; private set; } = new State_PlayerSlide();
     public State_PlayerAirDash state_PlayerAirDash { get; private set; } = new State_PlayerAirDash();
+    public State_PlayerGrandCasting state_PlayerGrandCasting { get; private set; } = new State_PlayerGrandCasting();
+
 
     [Header("Moving")]
     public int playerFacing;
@@ -43,13 +45,19 @@ public class PlayerStateManager : MonoBehaviour
     public UnityEvent gameOver;
     [Header("Sliding")]
     [SerializeField] private BoxCollider2D playerCol;
-    [SerializeField] private Vector2 slideColOffset,slideColSize;
-    [SerializeField] private Vector2 normColOffset,normColSize;
+    [SerializeField] private Vector2 slideColOffset, slideColSize;
+    [SerializeField] private Vector2 normColOffset, normColSize;
     [SerializeField] private bool isSliding;
 
     [Header("AirDash")]
     public float airdashForce;
     public bool canAirDash;
+
+    [Header("Grand Casting Stage")]
+    public float CastingSpeed;
+    public float CastingMaxDuration;
+    public float floatVelocity;
+    public float floatDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -125,14 +133,19 @@ public class PlayerStateManager : MonoBehaviour
                 isSliding = false;
                 playerCol.offset = normColOffset;
                 playerCol.size = normColSize;
-            break;
+                break;
 
             default:
                 isSliding = true;
                 playerCol.offset = slideColOffset;
                 playerCol.size = slideColSize;
-            break;
+                break;
         }
+    }
+
+    public void GrandCasting()
+    {
+        SwitchState(state_PlayerGrandCasting);
     }
 
     
