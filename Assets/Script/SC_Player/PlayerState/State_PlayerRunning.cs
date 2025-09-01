@@ -9,7 +9,7 @@ public class State_PlayerRunning : PlayerBaseState
 
     public override void EnterState(PlayerStateManager player)
     {
-
+        player.animator.SetTrigger("Run");
         rb = player.rb;
     }
 

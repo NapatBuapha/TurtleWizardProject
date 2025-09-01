@@ -7,6 +7,7 @@ public class State_PlayerFatigue : PlayerBaseState
     Rigidbody2D rb;
     public override void EnterState(PlayerStateManager player)
     {
+        player.animator.SetTrigger("Lose");
         rb = player.rb;
     }
 

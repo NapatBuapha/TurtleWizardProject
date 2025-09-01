@@ -14,6 +14,7 @@ public class State_PlayerJumping : PlayerBaseState
     {
         rb = player.rb;
 
+        player.animator.SetTrigger("Jump");
         jumpCountdown = player.jumpingTimeDelayed;
         rb.velocity = Vector2.zero;
         rb.AddForce(Vector2.up * player.jumpPower, ForceMode2D.Impulse);
@@ -36,10 +37,10 @@ public class State_PlayerJumping : PlayerBaseState
             }
             
 
-            if (Input.GetKeyUp(KeyCode.C) && player.canAirDash)
+            /*if (Input.GetKeyUp(KeyCode.C) && player.canAirDash)
             {
                 player.SwitchState(player.state_PlayerAirDash);
-            }
+            }*/
            
             if (jumpCountdown >= 0)
             {

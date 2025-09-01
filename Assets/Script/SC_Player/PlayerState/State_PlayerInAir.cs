@@ -27,14 +27,22 @@ public class State_PlayerInAir : PlayerBaseState
             player.SwitchState(player.state_PlayerShooting);
         }
 
-        if (Input.GetKeyUp(KeyCode.C) && player.canAirDash)
+        /*if (Input.GetKeyUp(KeyCode.C) && player.canAirDash)
         {
             player.SwitchState(player.state_PlayerAirDash);
-        }
+        }*/
 
         if (player.isGround)
         {
-            player.SwitchState(player.state_PlayerRunning);
+            if(Input.GetKeyDown(KeyCode.C))
+            {
+                player.SwitchState(player.state_PlayerSlide);
+            }
+            else
+            {
+                player.SwitchState(player.state_PlayerRunning);
+            }
+            
         }
     }
 }

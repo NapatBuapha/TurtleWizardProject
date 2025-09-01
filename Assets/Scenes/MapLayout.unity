@@ -6103,7 +6103,7 @@ GameObject:
   - component: {fileID: 425395757}
   - component: {fileID: 425395756}
   m_Layer: 0
-  m_Name: Map
+  m_Name: Layer 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27623,7 +27623,7 @@ GameObject:
   - component: {fileID: 518964263}
   - component: {fileID: 518964262}
   m_Layer: 0
-  m_Name: Platform
+  m_Name: Layer 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27684,7 +27684,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -30749,7 +30749,7 @@ GameObject:
   - component: {fileID: 673896970}
   - component: {fileID: 673896969}
   m_Layer: 0
-  m_Name: Tilemap-1
+  m_Name: Layer 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35584,7 +35584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 831183231}
   m_Layer: 0
-  m_Name: Tiwwy
+  m_Name: Level 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54171,7 +54171,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1637284712}
-  - {fileID: 245674000}
   - {fileID: 703514004}
+  - {fileID: 245674000}
   - {fileID: 831183231}
   - {fileID: 989525090}

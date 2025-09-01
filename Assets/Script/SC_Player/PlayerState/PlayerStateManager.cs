@@ -58,6 +58,8 @@ public class PlayerStateManager : MonoBehaviour
     public float CastingMaxDuration;
     public float floatVelocity;
     public float floatDistance;
+    [Header("Animation")]
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
