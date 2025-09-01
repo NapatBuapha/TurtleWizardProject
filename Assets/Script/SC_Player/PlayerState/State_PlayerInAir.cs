@@ -34,7 +34,7 @@ public class State_PlayerInAir : PlayerBaseState
 
         if (player.isGround)
         {
-            if(Input.GetKeyDown(KeyCode.C))
+            if(Input.GetKey(KeyCode.C))
             {
                 player.SwitchState(player.state_PlayerSlide);
             }

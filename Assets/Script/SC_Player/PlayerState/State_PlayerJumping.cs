@@ -35,12 +35,18 @@ public class State_PlayerJumping : PlayerBaseState
             {
                 player.SwitchState(player.state_PlayerShooting);
             }
-            
-
-            /*if (Input.GetKeyUp(KeyCode.C) && player.canAirDash)
+            if(Input.GetKeyUp(KeyCode.Z))
             {
-                player.SwitchState(player.state_PlayerAirDash);
-            }*/
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                if (player.isGround)
+                {
+                    player.SwitchState(player.state_PlayerRunning);
+                }
+                else
+                {
+                    player.SwitchState(player.state_PlayerInAir);
+                }
+            }
            
             if (jumpCountdown >= 0)
             {
