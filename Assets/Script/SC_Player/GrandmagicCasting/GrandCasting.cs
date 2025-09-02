@@ -7,7 +7,6 @@ public class GrandCasting : MonoBehaviour
 {
     
     public GameObject prefab;
-    public float obstacleBias = 0.7f; // โอกาสที่ spawn ใกล้ obstacle (0.7 = 70%)
     public float spawnRadius = 1f;
     public Vector2 screenMin, screenMax; // ขอบจอ (เช่น (-8,-4), (8,4))
     Camera cam;
@@ -50,28 +49,7 @@ public class GrandCasting : MonoBehaviour
     void Spawn()
     {
         Vector2 spawnPos;
-
-        if (Random.value < obstacleBias)
-        {
-            // --- Spawn ใกล้ obstacle ---
-            GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Enemy");
-            if (obstacles.Length > 0)
-            {
-                GameObject obstacle = obstacles[Random.Range(0, obstacles.Length)];
-                spawnPos = (Vector2)obstacle.transform.position +
-                           Random.insideUnitCircle * spawnRadius;
-            }
-            else
-            {
-                spawnPos = GetRandomScreenPosition();
-            }
-        }
-        else
-        {
-            // --- Spawn ทั่วจอ ---
-            spawnPos = GetRandomScreenPosition();
-        }
-
+        spawnPos = GetRandomScreenPosition();
         Instantiate(prefab, spawnPos, Quaternion.identity);
     }
 

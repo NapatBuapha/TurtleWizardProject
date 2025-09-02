@@ -15,10 +15,13 @@ public class QTEManager : MonoBehaviour
     private int currentIndex = 0;
     private bool isQTEActive = false;
 
+    PlayerStateManager player;
+
     void Start()
     {
         if (qtePanel != null)
             qtePanel.SetActive(false);
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerStateManager>();
     }
 
     public void StartQTE()
@@ -40,10 +43,23 @@ public class QTEManager : MonoBehaviour
 
         if (currentIndex < currentSequence.Count)
         {
-            if (Input.GetKeyDown(currentSequence[currentIndex]))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+                CheckPlayerInput();
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+                CheckPlayerInput();
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                CheckPlayerInput();
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+                CheckPlayerInput();
+        }
+    }
+
+    void CheckPlayerInput()
+    {
+        if (Input.GetKeyDown(currentSequence[currentIndex]))
             {
                 // กดถูกได้ไร ไม่รู้
-                arrowContainer.GetChild(currentIndex).GetComponent<Image>().color = Color.green;
+                arrowContainer.GetChild(currentIndex).GetComponent<Image>().color = Color.black;
                 currentIndex++;
 
                 if (currentIndex >= currentSequence.Count)
@@ -56,7 +72,6 @@ public class QTEManager : MonoBehaviour
                 // กดผิด เกิดอะไร
                 QTEFail();
             }
-        }
     }
 
     void GenerateSequence()
@@ -104,6 +119,7 @@ public class QTEManager : MonoBehaviour
 
     void QTESuccess()
     {
+        player.GrandCasting();
         Debug.Log("QTE Success!");
         qtePanel.SetActive(false);
         isQTEActive = false;

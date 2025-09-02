@@ -9,7 +9,6 @@ public class PlayerHP : MonoBehaviour, IDamageable
     public float health;
     //*public float drainRate = 0.1f;
     public bool isFatigue { get; private set; }
-    private bool isRunning;
     [SerializeField] private float inviTimes;
     private bool isInvincibility;
 
@@ -17,8 +16,12 @@ public class PlayerHP : MonoBehaviour, IDamageable
 
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(
+        LayerMask.NameToLayer("Player"),
+        LayerMask.NameToLayer("InvisFloor"),
+        true);
+        
         isInvincibility = false;
-        isRunning = false;
         isFatigue = false;
     }
 
@@ -38,8 +41,6 @@ public class PlayerHP : MonoBehaviour, IDamageable
         {
             health = 0;
             isFatigue = true;
-            isRunning = false;
-
         }
     }
 
@@ -53,13 +54,20 @@ public class PlayerHP : MonoBehaviour, IDamageable
     public void StartRunning()
     {
         health = maxHealth;
-        isRunning = true;
     }
 
-    IEnumerator InvincibleStates(float invincibilityTimes)
+    public IEnumerator InvincibleStates(float invincibilityTimes)
     {
+        Physics2D.IgnoreLayerCollision(
+        LayerMask.NameToLayer("Player"),
+        LayerMask.NameToLayer("InvisFloor"),
+        false);
         isInvincibility = true;
         yield return new WaitForSeconds(invincibilityTimes);
         isInvincibility = false;
+        Physics2D.IgnoreLayerCollision(
+        LayerMask.NameToLayer("Player"),
+        LayerMask.NameToLayer("InvisFloor"),
+        true);
     }
 }

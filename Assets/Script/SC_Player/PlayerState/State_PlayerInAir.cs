@@ -12,12 +12,12 @@ public class State_PlayerInAir : PlayerBaseState
     {
         Debug.Log(this);
         rb = player.rb;
-        
+
     }
 
     public override void FixedUpdateState(PlayerStateManager player)
     {
-        rb.velocity = new Vector2(player.speed,rb.velocity.y);
+        rb.velocity = new Vector2(player.speed, rb.velocity.y);
     }
 
     public override void UpdateState(PlayerStateManager player)
@@ -34,7 +34,7 @@ public class State_PlayerInAir : PlayerBaseState
 
         if (player.isGround)
         {
-            if(Input.GetKey(KeyCode.C))
+            if (Input.GetKey(KeyCode.C))
             {
                 player.SwitchState(player.state_PlayerSlide);
             }
@@ -42,7 +42,7 @@ public class State_PlayerInAir : PlayerBaseState
             {
                 player.SwitchState(player.state_PlayerRunning);
             }
-            
+
         }
     }
 }

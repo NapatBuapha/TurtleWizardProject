@@ -47,7 +47,7 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] private BoxCollider2D playerCol;
     [SerializeField] private Vector2 slideColOffset, slideColSize;
     [SerializeField] private Vector2 normColOffset, normColSize;
-    [SerializeField] private bool isSliding;
+    [SerializeField] public bool isSliding;
 
     [Header("AirDash")]
     public float airdashForce;
@@ -147,6 +147,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public void GrandCasting()
     {
+        StartCoroutine(GetComponent<PlayerHP>().InvincibleStates(CastingMaxDuration+3));
         SwitchState(state_PlayerGrandCasting);
     }
 

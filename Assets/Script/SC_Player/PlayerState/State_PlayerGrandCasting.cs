@@ -10,6 +10,15 @@ public class State_PlayerGrandCasting : PlayerBaseState
     float baseGravity;
     public override void EnterState(PlayerStateManager player)
     {
+        Physics2D.IgnoreLayerCollision(
+        LayerMask.NameToLayer("Player"),
+        LayerMask.NameToLayer("Ground"),
+       true);
+
+        if (player.isSliding)
+        {
+            player.ChangeHitbox_SlideState();
+        }
 
         currentCastingDuration = 0;
         rb = player.rb;
@@ -43,6 +52,10 @@ public class State_PlayerGrandCasting : PlayerBaseState
         }
         else
         {
+            Physics2D.IgnoreLayerCollision(
+            LayerMask.NameToLayer("Player"),
+            LayerMask.NameToLayer("Ground"),
+            false);
             player.gameObject.GetComponent<GrandCasting>().isGrandCasting = false;
             rb.gravityScale = baseGravity;
             player.SwitchState(player.state_PlayerRunning);
