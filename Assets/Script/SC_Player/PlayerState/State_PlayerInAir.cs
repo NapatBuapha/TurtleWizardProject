@@ -22,15 +22,17 @@ public class State_PlayerInAir : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
+
         if (Input.GetKeyDown(KeyCode.X))
         {
-            player.SwitchState(player.state_PlayerShooting);
+            player.UseMagic();
         }
 
-        /*if (Input.GetKeyUp(KeyCode.C) && player.canAirDash)
+        if (Input.GetKeyDown(KeyCode.Z) && player.canDoubleJump)
         {
-            player.SwitchState(player.state_PlayerAirDash);
-        }*/
+            player.canDoubleJump = false;
+            player.SwitchState(player.state_PlayerJumping);
+        }
 
         if (player.isGround)
         {

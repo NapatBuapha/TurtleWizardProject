@@ -119,7 +119,6 @@ public class QTEManager : MonoBehaviour
 
     void QTESuccess()
     {
-        player.GrandCasting();
         Debug.Log("QTE Success!");
         qtePanel.SetActive(false);
         isQTEActive = false;

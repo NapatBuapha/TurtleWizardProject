@@ -30,39 +30,38 @@ public class State_PlayerJumping : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
+         if (Input.GetKeyDown(KeyCode.X))
+        {
+            player.UseMagic();
+        }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyUp(KeyCode.Z))
+        {
+            if (player.isGround)
             {
-                player.SwitchState(player.state_PlayerShooting);
+                player.SwitchState(player.state_PlayerRunning);
             }
-            if(Input.GetKeyUp(KeyCode.Z))
+            else
             {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-                if (player.isGround)
-                {
-                    player.SwitchState(player.state_PlayerRunning);
-                }
-                else
-                {
-                    player.SwitchState(player.state_PlayerInAir);
-                }
+                player.SwitchState(player.state_PlayerInAir);
             }
+        }
            
             if (jumpCountdown >= 0)
             {
                 jumpCountdown -= Time.deltaTime;
             }
             else
+        {
+            if (player.isGround)
             {
-                if (player.isGround)
-                {
-                    player.SwitchState(player.state_PlayerRunning);
-                }
-                else
-                {
-                    player.SwitchState(player.state_PlayerInAir);
-                }
+                player.SwitchState(player.state_PlayerRunning);
             }
+            else
+            {
+                player.SwitchState(player.state_PlayerInAir);
+            }
+        }
     }
 }
 

@@ -7,7 +7,7 @@ public class ManaPaletteVisual : MonoBehaviour
     [SerializeField] public Transform playerPos;
     [SerializeField] public float AngularSpeed, RotationRadius;
     [SerializeField] private float posX, posY, angle = 0;
-    public Sprite empty, red, blue, yellow, orange, purple, green;
+    public Sprite empty, red, blue, yellow;
     SpriteRenderer render;
 
     private void Start()
@@ -41,15 +41,6 @@ public class ManaPaletteVisual : MonoBehaviour
                 break;
             case ManaColor.Yellow:
                 render.sprite = yellow;
-                break;
-            case ManaColor.Green:
-                render.sprite = green;
-                break;
-            case ManaColor.Orange:
-                render.sprite = orange;
-                break;
-            case ManaColor.Purple:
-                render.sprite = purple;
                 break;
             default:
                 render.sprite = empty;

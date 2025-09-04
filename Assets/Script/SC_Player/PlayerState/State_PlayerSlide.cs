@@ -24,10 +24,9 @@ public class State_PlayerSlide : PlayerBaseState
             player.gameOver.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+         if (Input.GetKeyDown(KeyCode.X))
         {
-            player.ChangeHitbox_SlideState();
-            player.SwitchState(player.state_PlayerShooting);
+            player.UseMagic();
         }
 
         if (Input.GetKeyDown(KeyCode.Z))

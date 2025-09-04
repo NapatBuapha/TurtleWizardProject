@@ -25,9 +25,9 @@ public class State_PlayerRunning : PlayerBaseState
             player.gameOver.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+         if (Input.GetKeyDown(KeyCode.X))
         {
-            player.SwitchState(player.state_PlayerShooting);
+            player.UseMagic();
         }
 
         if (Input.GetKeyDown(KeyCode.Z))

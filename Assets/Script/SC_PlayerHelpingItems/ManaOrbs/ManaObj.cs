@@ -7,7 +7,6 @@ public class ManaObj : MonoBehaviour
 {
 
     [SerializeField] public ManaColor color;
-
     void OnTriggerEnter2D(Collider2D col)
     {
         GameObject hitObj = col.gameObject;

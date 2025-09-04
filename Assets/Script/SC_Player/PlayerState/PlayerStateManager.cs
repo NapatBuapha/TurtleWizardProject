@@ -14,11 +14,9 @@ public class PlayerStateManager : MonoBehaviour
     public State_PlayerRunning state_PlayerRunning { get; private set; } = new State_PlayerRunning();
     public State_PlayerJumping state_PlayerJumping { get; private set; } = new State_PlayerJumping();
     public State_PlayerInAir state_PlayerInAir { get; private set; } = new State_PlayerInAir();
-    public State_PlayerShooting state_PlayerShooting { get; private set; } = new State_PlayerShooting();
     public State_PlayerFatigue state_PlayerFatigue { get; private set; } = new State_PlayerFatigue();
     public State_PlayerSlide state_PlayerSlide { get; private set; } = new State_PlayerSlide();
     public State_PlayerAirDash state_PlayerAirDash { get; private set; } = new State_PlayerAirDash();
-    public State_PlayerGrandCasting state_PlayerGrandCasting { get; private set; } = new State_PlayerGrandCasting();
 
 
     [Header("Moving")]
@@ -33,11 +31,7 @@ public class PlayerStateManager : MonoBehaviour
     public float boxCastDistance = 1f;
     public LayerMask groundLayer;
     public bool isGround;
-    [Header("Shooting")]
-    public GameObject magic;
-    public float chargingRate;
-    public float maxCharge;
-    public float currentCharge;
+    public bool canDoubleJump;
 
     public IGunStyle gunStyle;
     [Header("FatigueStatus")]
@@ -53,28 +47,37 @@ public class PlayerStateManager : MonoBehaviour
     public float airdashForce;
     public bool canAirDash;
 
-    [Header("Grand Casting Stage")]
-    public float CastingSpeed;
-    public float CastingMaxDuration;
-    public float floatVelocity;
-    public float floatDistance;
+    [Header("Rushing Stage")]
+    public GameObject destructionAura;
+    public PlayerHP playerHp;
+
+    [Header("Magic Used")]
+    public ManaPaletteCore manaPalette;
+
     [Header("Animation")]
     public Animator animator;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         canAirDash = true;
         isSliding = false;
+        canDoubleJump = true;
+        currentState = state_PlayerIdle;
+
         gameOver.AddListener(GameObject.Find("[Temp]GameOverCanvas").GetComponent<GameOverUi>().GameOver);
         gameOver.AddListener(FatigueGameOver);
         //GameOver Event
 
+        manaPalette = GetComponent<ManaPaletteCore>();
         playerCol = GetComponent<BoxCollider2D>();
-        gunStyle = magic.GetComponent<IGunStyle>();
         rb = GetComponent<Rigidbody2D>();
-        currentState = state_PlayerIdle;
+        playerHp = GetComponent<PlayerHP>();
+
         currentState.EnterState(this);
+        destructionAura.SetActive(false);
     }
 
     // Update is called once per frame
@@ -98,11 +101,13 @@ public class PlayerStateManager : MonoBehaviour
         state.EnterState(this);
     }
 
+    //Public Method ที่ไม่เกี่ยวกับ State
     public bool CheckGround()
     {
         if (Physics2D.BoxCast(transform.position, groundCheckBoxSize, 0, -Vector2.up, boxCastDistance, groundLayer))
         {
             canAirDash = true;
+            canDoubleJump = true;
             return true;
         }
         else
@@ -111,11 +116,6 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
-    public void shooting()
-    {
-        Debug.Log(gunStyle);
-        gunStyle.shooting();
-    }
 
     public void FatigueGameOver()
     {
@@ -145,11 +145,18 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
-    public void GrandCasting()
+    public IEnumerator RushingState(float speedMultiplier, float rushDuration)
     {
-        StartCoroutine(GetComponent<PlayerHP>().InvincibleStates(CastingMaxDuration+3));
-        SwitchState(state_PlayerGrandCasting);
+        StartCoroutine(playerHp.InvincibleStates(rushDuration+3));
+        speed *= speedMultiplier;
+        destructionAura.SetActive(true);
+        yield return new WaitForSeconds(rushDuration);
+        speed /= speedMultiplier;
+        destructionAura.SetActive(false);
     }
 
-    
+    public void UseMagic()
+    {
+        manaPalette.UsingMagic();
+    }
 }
