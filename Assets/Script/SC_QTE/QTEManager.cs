@@ -16,6 +16,8 @@ public class QTEManager : MonoBehaviour
     private bool isQTEActive = false;
 
     PlayerStateManager player;
+    [SerializeField] private float speedMultiplier;
+    [SerializeField] private float rushDuration;
 
     void Start()
     {
@@ -119,6 +121,7 @@ public class QTEManager : MonoBehaviour
 
     void QTESuccess()
     {
+        StartCoroutine(player.RushingState(speedMultiplier, rushDuration));
         Debug.Log("QTE Success!");
         qtePanel.SetActive(false);
         isQTEActive = false;

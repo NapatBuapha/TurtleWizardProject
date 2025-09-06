@@ -28,6 +28,7 @@ public class ManaPaletteCore : MonoBehaviour
     [SerializeField] private float speedMultiplier;
     [SerializeField] private float rushDuration;
     private PlayerStateManager player;
+    [SerializeField] private Animator anim;
    
 
 
@@ -35,6 +36,7 @@ public class ManaPaletteCore : MonoBehaviour
     {
         player = GetComponent<PlayerStateManager>();
         playerHP = GetComponent<PlayerHP>();
+        anim = player.animator;
         EmptyManaColor();
     }
 
@@ -77,6 +79,7 @@ public class ManaPaletteCore : MonoBehaviour
     }
     void BlueManaInvisible()
     {
+        anim.SetTrigger("WaterCast");
         StartCoroutine(playerHP.InvincibleStates(invisibleDuraion));
     }
     void RedManaRush()
