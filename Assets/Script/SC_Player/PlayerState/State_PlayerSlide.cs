@@ -7,6 +7,7 @@ public class State_PlayerSlide : PlayerBaseState
     Rigidbody2D rb;
     public override void EnterState(PlayerStateManager player)
     {
+        AudioManager.PlaySound(SoundType.PLAYER_Slide , 0.1f);
         player.animator.SetTrigger("Slide");
         rb = player.rb;
         player.ChangeHitbox_SlideState();

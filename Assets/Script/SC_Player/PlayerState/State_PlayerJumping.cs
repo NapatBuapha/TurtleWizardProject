@@ -12,6 +12,7 @@ public class State_PlayerJumping : PlayerBaseState
     // Start is called before the first frame update
     public override void EnterState(PlayerStateManager player)
     {
+        AudioManager.PlaySound(SoundType.PLAYER_Jump , 0.1f);
         rb = player.rb;
 
         player.animator.SetTrigger("Jump");

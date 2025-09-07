@@ -52,6 +52,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
             }
             else
             {
+                AudioManager.PlaySound(SoundType.PLAYER_Hurt , 0.5f);
                 anim.SetTrigger("Damaged");
                 health -= damageValue;
                 StartCoroutine(Stun(stunDura_));

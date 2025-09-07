@@ -147,7 +147,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public IEnumerator RushingState(float speedMultiplier, float rushDuration)
     {
-        StartCoroutine(playerHp.InvincibleStates(rushDuration+3));
+        StartCoroutine(playerHp.InvincibleStates(rushDuration + 3));
         speed *= speedMultiplier;
         destructionAura.SetActive(true);
         yield return new WaitForSeconds(rushDuration);
@@ -158,5 +158,10 @@ public class PlayerStateManager : MonoBehaviour
     public void UseMagic()
     {
         manaPalette.UsingMagic();
+    }
+
+    public void SetIdle()
+    {
+        SwitchState(state_PlayerIdle);
     }
 }
