@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleBase : MonoBehaviour
 {
-    private int damageAmout = 20;
+    [SerializeField] private int damageAmout = 20;
     void OnTriggerEnter2D(Collider2D col)
     {
         GameObject hitObj = col.gameObject;
