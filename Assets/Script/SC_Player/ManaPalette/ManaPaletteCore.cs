@@ -79,7 +79,8 @@ public class ManaPaletteCore : MonoBehaviour
     }
     void BlueManaInvisible()
     {
-        anim.SetTrigger("WaterCast");
+        anim.SetBool("WaterCast" , true);
+        anim.SetTrigger("CastWater");
         StartCoroutine(playerHP.InvincibleStates(invisibleDuraion));
     }
     void RedManaRush()

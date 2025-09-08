@@ -15,11 +15,13 @@ public class PlayerHP : MonoBehaviour, IDamageable
     private bool isInvincibility;
 
     //Barrier code
+    [Header ("Shield")]
     private bool isBarrier;
     private float barrierDuration;
     [SerializeField] private Animator anim;
     PlayerStateManager player;
-    [SerializeField] private float stunDura_; 
+    [SerializeField] private float stunDura_;
+    [SerializeField] private GameObject barrier;
 
 
     // Start is called before the first frame update
@@ -36,6 +38,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
         isFatigue = false;
         isRunning = false;
         isBarrier = false;
+        barrier.SetActive(false);
     }
 
 
@@ -48,6 +51,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
                 isBarrier = false;
                 barrierDuration = 0;
                 StartCoroutine(InvincibleStates(inviTimes));
+
 
             }
             else
@@ -73,6 +77,10 @@ public class PlayerHP : MonoBehaviour, IDamageable
             health = 0;
             isFatigue = true;
         }
+
+        if (barrierDuration > 0) barrier.SetActive(true);
+        else barrier.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -95,15 +103,21 @@ public class PlayerHP : MonoBehaviour, IDamageable
 
     public IEnumerator InvincibleStates(float invincibilityTimes)
     {
+        if(!anim.GetBool("WaterCast"))
         anim.SetBool("IsInvi", true);
+
         Physics2D.IgnoreLayerCollision(
         LayerMask.NameToLayer("Player"),
         LayerMask.NameToLayer("InvisFloor"),
         false);
+
         isInvincibility = true;
         yield return new WaitForSeconds(invincibilityTimes);
         isInvincibility = false;
-        anim.SetBool("IsInvi", false);
+
+        if(anim.GetBool("WaterCast")) anim.SetBool("WaterCast" , false);
+        else anim.SetBool("IsInvi", false);
+        
         Physics2D.IgnoreLayerCollision(
         LayerMask.NameToLayer("Player"),
         LayerMask.NameToLayer("InvisFloor"),

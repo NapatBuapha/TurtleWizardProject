@@ -50,6 +50,7 @@ public class PlayerStateManager : MonoBehaviour
     [Header("Rushing Stage")]
     public GameObject destructionAura;
     public PlayerHP playerHp;
+    public bool isRushing;
 
     [Header("Magic Used")]
     public ManaPaletteCore manaPalette;
@@ -147,11 +148,15 @@ public class PlayerStateManager : MonoBehaviour
 
     public IEnumerator RushingState(float speedMultiplier, float rushDuration)
     {
-        StartCoroutine(playerHp.InvincibleStates(rushDuration + 3));
         speed *= speedMultiplier;
+        isRushing = true;
+        StartCoroutine(playerHp.InvincibleStates(rushDuration + 3));
         destructionAura.SetActive(true);
+
         yield return new WaitForSeconds(rushDuration);
+        
         speed /= speedMultiplier;
+        isRushing = false;
         destructionAura.SetActive(false);
     }
 
