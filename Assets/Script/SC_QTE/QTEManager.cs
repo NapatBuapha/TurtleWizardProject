@@ -121,7 +121,7 @@ public class QTEManager : MonoBehaviour
 
     void QTESuccess()
     {
-        StartCoroutine(player.RushingState(speedMultiplier, rushDuration));
+        player.Rush(speedMultiplier, rushDuration);
         Debug.Log("QTE Success!");
         qtePanel.SetActive(false);
         isQTEActive = false;

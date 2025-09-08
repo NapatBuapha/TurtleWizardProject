@@ -169,4 +169,8 @@ public class PlayerStateManager : MonoBehaviour
     {
         SwitchState(state_PlayerIdle);
     }
+    public void Rush(float speedMultiplier, float rushDuration)
+    {
+        StartCoroutine(RushingState(speedMultiplier, rushDuration));
+    }
 }
