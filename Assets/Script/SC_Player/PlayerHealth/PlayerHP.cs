@@ -87,6 +87,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
         if (Health <= 0 && isRunning)
         {
             isFatigue = true;
+            player.actionLine.SetLineState(2);
         }
 
         if (barrierDuration > 0) barrier.SetActive(true);

@@ -58,8 +58,7 @@ public class PlayerStateManager : MonoBehaviour
 
     [Header("Animation")]
     public Animator animator;
-
-
+    public SC_ActionLine actionLine;
 
     // Start is called before the first frame update
     void Start()
@@ -130,6 +129,7 @@ public class PlayerStateManager : MonoBehaviour
     {
         isRunning = true;
         SwitchState(state_PlayerRunning);
+        actionLine.SetLineState(1);
     }
 
     public void ChangeHitbox_SlideState()
@@ -157,6 +157,7 @@ public class PlayerStateManager : MonoBehaviour
         isRushing = true;
         playerHp.StartTheInvincibelState(rushDuration + 3);
         destructionAura.SetActive(true);
+        actionLine.SetLineState(3);
 
         yield return new WaitForSeconds(rushDuration);
 
@@ -164,6 +165,7 @@ public class PlayerStateManager : MonoBehaviour
         isRushing = false;
         destructionAura.SetActive(false);
         //ปรับ Action Line กลับตรงนี้
+        actionLine.SetLineState(1);
     }
 
     public void UseMagic()
