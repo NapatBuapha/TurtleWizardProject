@@ -152,6 +152,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public IEnumerator RushingState(float speedMultiplier, float rushDuration)
     {
+        AudioManager.PlaySound(SoundType.FIRE_Effect , 0.5f);
         //ปรับ Action Line ตรงนี้
         speed = BaseSpeed * speedMultiplier;
         isRushing = true;

@@ -75,10 +75,12 @@ public class ManaPaletteCore : MonoBehaviour
     }
     void YellowManaBarrier()
     {
+        AudioManager.PlaySound(SoundType.ELECTRO_Effect , 0.5f);
         playerHP.GainBarrier(barrierDuration);
     }
     void BlueManaInvisible()
     {
+        AudioManager.PlaySound(SoundType.WATER_Effect , 0.5f);
         anim.SetBool("WaterCast" , true);
         anim.SetTrigger("CastWater");
         playerHP.StartTheInvincibelState(invisibleDuraion);

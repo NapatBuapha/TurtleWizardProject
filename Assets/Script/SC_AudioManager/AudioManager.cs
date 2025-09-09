@@ -8,6 +8,9 @@ public enum SoundType
     PLAYER_Hurt,
     PLAYER_Jump,
     PLAYER_Slide,
+    FIRE_Effect,
+    ELECTRO_Effect,
+    WATER_Effect
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
