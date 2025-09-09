@@ -81,7 +81,7 @@ public class ManaPaletteCore : MonoBehaviour
     {
         anim.SetBool("WaterCast" , true);
         anim.SetTrigger("CastWater");
-        StartCoroutine(playerHP.InvincibleStates(invisibleDuraion));
+        playerHP.StartTheInvincibelState(invisibleDuraion);
     }
     void RedManaRush()
     {

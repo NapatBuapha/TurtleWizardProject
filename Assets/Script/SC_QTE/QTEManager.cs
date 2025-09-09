@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class QTEManager : MonoBehaviour
 {
     [Header("UI References")]
-    public GameObject qtePanel;              
-    public Image arrowPrefab;                
-    public Sprite upArrow, downArrow, leftArrow, rightArrow; 
-    public Transform arrowContainer;         
+    public GameObject qtePanel;
+    public Image arrowPrefab;
+    public Sprite upArrow, downArrow, leftArrow, rightArrow;
+    public Transform arrowContainer;
 
     private List<KeyCode> currentSequence = new List<KeyCode>();
     private int currentIndex = 0;
@@ -19,8 +19,18 @@ public class QTEManager : MonoBehaviour
     [SerializeField] private float speedMultiplier;
     [SerializeField] private float rushDuration;
 
+    [Header("Time limit")]
+    [SerializeField] float QteTimeLimit = 10;
+    public float countdown;
+
+    [Header("QTE Warning")]
+    [SerializeField] private GameObject qteWarning;
+    [SerializeField] private float displayTime;
+
     void Start()
     {
+        qteWarning.SetActive(false);
+        countdown = 0;
         if (qtePanel != null)
             qtePanel.SetActive(false);
         player = GameObject.FindWithTag("Player").GetComponent<PlayerStateManager>();
@@ -34,6 +44,8 @@ public class QTEManager : MonoBehaviour
         isQTEActive = true;
         currentSequence.Clear();
         currentIndex = 0;
+        countdown = QteTimeLimit;
+        StartCoroutine(QTEWarning());
 
         GenerateSequence();
         ShowSequence();
@@ -42,6 +54,13 @@ public class QTEManager : MonoBehaviour
     void Update()
     {
         if (!isQTEActive) return;
+
+        if (countdown > 0)
+        {
+            countdown -= Time.deltaTime;
+        }
+        else QTEFail();
+
 
         if (currentIndex < currentSequence.Count)
         {
@@ -59,21 +78,21 @@ public class QTEManager : MonoBehaviour
     void CheckPlayerInput()
     {
         if (Input.GetKeyDown(currentSequence[currentIndex]))
-            {
-                // กดถูกได้ไร ไม่รู้
-                arrowContainer.GetChild(currentIndex).GetComponent<Image>().color = Color.black;
-                currentIndex++;
+        {
+            // กดถูกได้ไร ไม่รู้
+            arrowContainer.GetChild(currentIndex).GetComponent<Image>().color = Color.black;
+            currentIndex++;
 
-                if (currentIndex >= currentSequence.Count)
-                {
-                    QTESuccess();
-                }
-            }
-            else if (Input.anyKeyDown)
+            if (currentIndex >= currentSequence.Count)
             {
-                // กดผิด เกิดอะไร
-                QTEFail();
+                QTESuccess();
             }
+        }
+        else if (Input.anyKeyDown)
+        {
+            // กดผิด เกิดอะไร
+            QTEFail();
+        }
     }
 
     void GenerateSequence()
@@ -116,7 +135,7 @@ public class QTEManager : MonoBehaviour
 
             arrow.color = Color.white;
         }
-        
+
     }
 
     void QTESuccess()
@@ -132,5 +151,12 @@ public class QTEManager : MonoBehaviour
         Debug.Log("QTE Failed!");
         qtePanel.SetActive(false);
         isQTEActive = false;
+    }
+
+    IEnumerator QTEWarning()
+    {
+        qteWarning.SetActive(true);
+        yield return new WaitForSeconds(displayTime);
+        qteWarning.SetActive(false);
     }
 }

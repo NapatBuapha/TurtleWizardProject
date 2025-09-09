@@ -20,6 +20,7 @@ public class PlayerStateManager : MonoBehaviour
 
 
     [Header("Moving")]
+    [HideInInspector] public bool isRunning;
     public int playerFacing;
     public float speed = 10;
 
@@ -120,11 +121,13 @@ public class PlayerStateManager : MonoBehaviour
 
     public void FatigueGameOver()
     {
+        isRunning = false;
         SwitchState(state_PlayerFatigue);
     }
 
     public void StartRunning()
     {
+        isRunning = true;
         SwitchState(state_PlayerRunning);
     }
 
@@ -150,7 +153,7 @@ public class PlayerStateManager : MonoBehaviour
     {
         speed *= speedMultiplier;
         isRushing = true;
-        StartCoroutine(playerHp.InvincibleStates(rushDuration + 3));
+        playerHp.StartTheInvincibelState(rushDuration + 3);
         destructionAura.SetActive(true);
 
         yield return new WaitForSeconds(rushDuration);

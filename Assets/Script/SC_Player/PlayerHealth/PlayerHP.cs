@@ -22,6 +22,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
     PlayerStateManager player;
     [SerializeField] private float stunDura_;
     [SerializeField] private GameObject barrier;
+    private Coroutine invincibleCoroutine; 
 
 
     // Start is called before the first frame update
@@ -50,7 +51,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
             {
                 isBarrier = false;
                 barrierDuration = 0;
-                StartCoroutine(InvincibleStates(inviTimes));
+                StartTheInvincibelState(inviTimes);
 
 
             }
@@ -60,7 +61,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
                 anim.SetTrigger("Damaged");
                 health -= damageValue;
                 StartCoroutine(Stun(stunDura_));
-                StartCoroutine(InvincibleStates(inviTimes));
+                StartTheInvincibelState(inviTimes);
             }
         }
     }
@@ -101,10 +102,20 @@ public class PlayerHP : MonoBehaviour, IDamageable
         isRunning = true;
     }
 
+    public void StartTheInvincibelState(float invincibilityTimes)
+    {
+        if (invincibleCoroutine != null)
+        {
+            StopCoroutine(invincibleCoroutine);
+            invincibleCoroutine = StartCoroutine(InvincibleStates(invincibilityTimes));
+        }
+        else invincibleCoroutine = StartCoroutine(InvincibleStates(invincibilityTimes));
+    }
+
     public IEnumerator InvincibleStates(float invincibilityTimes)
     {
-        if(!anim.GetBool("WaterCast"))
-        anim.SetBool("IsInvi", true);
+        if (!anim.GetBool("WaterCast"))
+            anim.SetBool("IsInvi", true);
 
         Physics2D.IgnoreLayerCollision(
         LayerMask.NameToLayer("Player"),
@@ -115,9 +126,9 @@ public class PlayerHP : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(invincibilityTimes);
         isInvincibility = false;
 
-        if(anim.GetBool("WaterCast")) anim.SetBool("WaterCast" , false);
+        if (anim.GetBool("WaterCast")) anim.SetBool("WaterCast", false);
         else anim.SetBool("IsInvi", false);
-        
+
         Physics2D.IgnoreLayerCollision(
         LayerMask.NameToLayer("Player"),
         LayerMask.NameToLayer("InvisFloor"),

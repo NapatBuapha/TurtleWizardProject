@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FallingTile : MonoBehaviour
 {
-    Animator animator;
+    [SerializeField] private Animator animator;
 
     GameObject playerObj;
     [SerializeField] private float startMove_Dis = 10;
