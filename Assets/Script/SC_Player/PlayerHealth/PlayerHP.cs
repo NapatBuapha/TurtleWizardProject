@@ -22,7 +22,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
     PlayerStateManager player;
     [SerializeField] private float stunDura_;
     [SerializeField] private GameObject barrier;
-    private Coroutine invincibleCoroutine; 
+    private Coroutine invincibleCoroutine;
 
 
     // Start is called before the first frame update
