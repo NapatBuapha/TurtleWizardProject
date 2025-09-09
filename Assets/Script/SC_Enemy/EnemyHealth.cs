@@ -6,7 +6,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxHealth = 1;
     [SerializeField] private int health;
-    [SerializeField] private int onDefeatScore = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +24,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void GetDefeated()
     {
-        GameObject.Find("[Temp]ScoreDisplayer").GetComponent<ScoreDisplayUi>().IncreaseScore(onDefeatScore);
         Destroy(gameObject);
     }
     

@@ -6,8 +6,19 @@ using UnityEngine.Events;
 
 public class PlayerHP : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float maxHealth = 20f;
-    public float health;
+    public float maxHealth = 100f;
+    private float health; //มีหน้าที่เก็บอย่างเดียวไม่ควรดึงไปใช้
+
+    public float Health //เวลาจะเรียก ให้เรียกตัวนี้
+    {
+        get { return health; }
+        set
+        {
+            health = Mathf.Clamp(value, 0, maxHealth);
+        }
+    }
+
+    //ใช้ตัวนี้เชื่อมกับ ui health 
     public float drainRate = 0.1f;
     bool isRunning;
     public bool isFatigue { get; private set; }
@@ -59,7 +70,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
             {
                 AudioManager.PlaySound(SoundType.PLAYER_Hurt , 0.5f);
                 anim.SetTrigger("Damaged");
-                health -= damageValue;
+                Health -= damageValue;
                 StartCoroutine(Stun(stunDura_));
                 StartTheInvincibelState(inviTimes);
             }
@@ -68,14 +79,13 @@ public class PlayerHP : MonoBehaviour, IDamageable
 
     public void Heal(float healValue)
     {
-        health += healValue;
+        Health += healValue;
     }
 
     private void Update()
     {
-        if (health <= 0)
+        if (Health <= 0 && isRunning)
         {
-            health = 0;
             isFatigue = true;
         }
 
@@ -88,7 +98,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
     private void FixedUpdate()
     {
         if (!isFatigue && isRunning)
-            health -= drainRate;
+            Health -= drainRate;
 
         if (barrierDuration > 0)
             barrierDuration -= Time.deltaTime;
@@ -98,7 +108,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
 
     public void StartRunning()
     {
-        health = maxHealth;
+        Health = maxHealth;
         isRunning = true;
     }
 
@@ -140,6 +150,7 @@ public class PlayerHP : MonoBehaviour, IDamageable
         float baseSpeed = player.speed;
         player.speed *= 0.5f;
         yield return new WaitForSeconds(stunDuration);
+        if(!player.isRushing)
         player.speed = baseSpeed;
 
     }

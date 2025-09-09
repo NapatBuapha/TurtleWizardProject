@@ -2,23 +2,24 @@ using System;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthUi : MonoBehaviour
 {
     private float ui_Health;
-    private PlayerHP playerHP;
-    [SerializeField] private TMP_Text hpText;
+    [SerializeField] private PlayerHP playerHP;
+    [SerializeField] private Slider hpSlider;
 
     void Start()
     {
         playerHP = GameObject.FindWithTag("Player").GetComponent<PlayerHP>();
+        hpSlider.maxValue = playerHP.maxHealth;
     }
 
     void Update()
     {
-        ui_Health = playerHP.health;
-        hpText.text = $"HP = {Math.Round(ui_Health, 2)}";
-
+        hpSlider.value = playerHP.Health;
+        
     }
 
 }

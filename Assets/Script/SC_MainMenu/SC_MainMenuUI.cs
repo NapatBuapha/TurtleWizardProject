@@ -6,20 +6,19 @@ public class SC_MainMenuUI : MonoBehaviour
 {
     [Header("UI References")]
     public GameObject mainMenuPanel; // Panel ที่เก็บปุ่มและโลโก้
+    public GameObject hpSlider;
 
     void Start()
     {
-        // หยุดเวลาไว้ก่อน (ถ้าอยากให้เกมรอกด Start)
-        Time.timeScale = 0f;
+        hpSlider.SetActive(false);
     }
 
     public void StartGame()
     {
         // ซ่อนเมนู
         mainMenuPanel.SetActive(false);
-
-        // ปล่อยเวลาให้เกมทำงาน
-        Time.timeScale = 1f;
+        // เปิด HpBar
+        hpSlider.SetActive(true);
 
         Debug.Log("Game Started!");
     }

@@ -23,7 +23,7 @@ public class PlayerStateManager : MonoBehaviour
     [HideInInspector] public bool isRunning;
     public int playerFacing;
     public float speed = 10;
-
+    private float BaseSpeed;
     public Rigidbody2D rb { get; private set; }
     [Header("Jumping")]
     public float jumpPower = 10;
@@ -64,6 +64,7 @@ public class PlayerStateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BaseSpeed = speed;
         canAirDash = true;
         isSliding = false;
         canDoubleJump = true;
@@ -151,16 +152,18 @@ public class PlayerStateManager : MonoBehaviour
 
     public IEnumerator RushingState(float speedMultiplier, float rushDuration)
     {
-        speed *= speedMultiplier;
+        //ปรับ Action Line ตรงนี้
+        speed = BaseSpeed * speedMultiplier;
         isRushing = true;
         playerHp.StartTheInvincibelState(rushDuration + 3);
         destructionAura.SetActive(true);
 
         yield return new WaitForSeconds(rushDuration);
-        
-        speed /= speedMultiplier;
+
+        speed = BaseSpeed;
         isRushing = false;
         destructionAura.SetActive(false);
+        //ปรับ Action Line กลับตรงนี้
     }
 
     public void UseMagic()
@@ -174,6 +177,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Rush(float speedMultiplier, float rushDuration)
     {
+        
         StartCoroutine(RushingState(speedMultiplier, rushDuration));
     }
 }
