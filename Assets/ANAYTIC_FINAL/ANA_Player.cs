@@ -21,7 +21,7 @@ public class ANA_Player : MonoBehaviour
     bool hasDied = false;
 
     //store
-
+    public int PurchaseTracker = 0;
 
     void Start()
     {
@@ -103,5 +103,11 @@ public class ANA_Player : MonoBehaviour
             AdOpportunity++;
             Debug.Log("Ad Opportunity : " + AdOpportunity);
         }
+    }
+
+    public void PurchaseItem()
+    {
+        PurchaseTracker++;
+        Debug.Log($"player purchased { PurchaseTracker } item");
     }
 }
