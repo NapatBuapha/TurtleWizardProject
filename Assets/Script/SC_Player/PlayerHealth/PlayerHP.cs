@@ -91,9 +91,15 @@ public class PlayerHP : MonoBehaviour, IDamageable
     public void Heal(float healValue)
     {
         Health += healValue;
+    } 
+
+    public void Revive()
+    {
+        Health = 100;
         isRunning = true;
         isFatigue = false;
     }
+
 
     private void Update()
     {

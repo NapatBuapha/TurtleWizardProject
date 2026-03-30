@@ -132,7 +132,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public void Revive()
     {
-        playerHp.health = 100;
+        playerHp.Revive();
         isRunning = true;
         SwitchState(state_PlayerRunning);
     }
