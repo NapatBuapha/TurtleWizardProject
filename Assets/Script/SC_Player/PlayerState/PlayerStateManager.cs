@@ -134,12 +134,15 @@ public class PlayerStateManager : MonoBehaviour
     {
         playerHp.Revive();
         isRunning = true;
+        ANA_Player.AdOpportunity = 0;
         SwitchState(state_PlayerRunning);
     }
 
     public void StartRunning()
     {
         isRunning = true;
+        ANA_Player.AdOpportunity = 0;
+        ANA_Player.AdCompleted = false;
         SwitchState(state_PlayerRunning);
         actionLine.SetLineState(1);
     }

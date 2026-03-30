@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Services.Analytics;
+using Unity.Services.Core;
 
 
 public class GameOverUi : MonoBehaviour
@@ -45,11 +47,19 @@ public class GameOverUi : MonoBehaviour
     public void ReviveButton()
     {
         Debug.Log("Revive Button Pressed");
-        ANA_Player.AdCompleted++;
+        ANA_Player.AdCompleted = true;
         Debug.Log("Ad Completed : " + ANA_Player.AdCompleted);
 
         uiGroup.SetActive(false);
         isActive = false;
+
+        //send data here
+        CustomEvent exampleEvent = new CustomEvent("ANA_UnityAd")
+        {
+            {"Analytics_Final_AdOpportunity", ANA_Player.AdOpportunity} ,
+            {"Analytics_Final_AdCompleted", ANA_Player.AdCompleted}
+        };
+        AnalyticsService.Instance.RecordEvent(exampleEvent);
     }
 
     public void ShopButton()

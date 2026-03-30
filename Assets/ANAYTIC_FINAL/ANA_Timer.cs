@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
+using Unity.Services.Analytics;
+using Unity.Services.Core;
 
 public class ANA_Timer : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class ANA_Timer : MonoBehaviour
 
     public GameObject ReviveButton;
     public bool isEnded = false;
+
+    public ANA_Player ANA_Player;
 
     public GameOverUi gameOverUi;
 
@@ -41,6 +44,14 @@ public class ANA_Timer : MonoBehaviour
 
                 Destroy(ReviveButton);
                 isEnded = true;
+
+                //send data here
+                CustomEvent exampleEvent = new CustomEvent("ANA_UnityAd")
+                {
+                    {"Analytics_Final_AdOpportunity", ANA_Player.AdOpportunity} ,
+                    {"Analytics_Final_AdCompleted", ANA_Player.AdCompleted}
+                };
+                AnalyticsService.Instance.RecordEvent(exampleEvent);
             }
         }
         else
