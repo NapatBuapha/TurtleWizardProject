@@ -5,6 +5,7 @@ using UnityEngine;
 public class Goal : MonoBehaviour
 {
     [SerializeField] private GameObject winUi;
+    public ANA_Player ANA_Player;
     void Awake()
     {
         winUi.SetActive(false);
@@ -17,6 +18,7 @@ public class Goal : MonoBehaviour
         if (hitObj.CompareTag("Player"))
         {
             hitObj.GetComponent<PlayerStateManager>().SetIdle();
+            ANA_Player.OnWin();
             winUi.SetActive(true);
         }
     }

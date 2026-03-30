@@ -60,6 +60,10 @@ public class PlayerStateManager : MonoBehaviour
     public Animator animator;
     public SC_ActionLine actionLine;
 
+    //ANALYZE FINAL
+    public ANA_Player ANA_Player;
+    //
+
     // Start is called before the first frame update
     void Start()
     {
@@ -122,7 +126,15 @@ public class PlayerStateManager : MonoBehaviour
     public void FatigueGameOver()
     {
         isRunning = false;
+        ANA_Player.OnPlayerDeath();
         SwitchState(state_PlayerFatigue);
+    }
+
+    public void Revive()
+    {
+        playerHp.health = 100;
+        isRunning = true;
+        SwitchState(state_PlayerRunning);
     }
 
     public void StartRunning()

@@ -7,7 +7,12 @@ using UnityEngine.Events;
 public class PlayerHP : MonoBehaviour, IDamageable
 {
     public float maxHealth = 100f;
-    private float health; //มีหน้าที่เก็บอย่างเดียวไม่ควรดึงไปใช้
+    public float health; //มีหน้าที่เก็บอย่างเดียวไม่ควรดึงไปใช้
+
+    //ANALYZE FINAL
+    public ANA_Player ANA_Player;
+    public bool hasLost = false;
+    //
 
     public float Health //เวลาจะเรียก ให้เรียกตัวนี้
     {
@@ -71,6 +76,12 @@ public class PlayerHP : MonoBehaviour, IDamageable
                 AudioManager.PlaySound(SoundType.PLAYER_Hurt , 0.5f);
                 anim.SetTrigger("Damaged");
                 Health -= damageValue;
+
+                if (Health <= 0)
+                {
+                    hasLost = true;
+                }
+
                 StartCoroutine(Stun(stunDura_));
                 StartTheInvincibelState(inviTimes);
             }
@@ -80,14 +91,19 @@ public class PlayerHP : MonoBehaviour, IDamageable
     public void Heal(float healValue)
     {
         Health += healValue;
+        isRunning = true;
+        isFatigue = false;
     }
 
     private void Update()
     {
         if (Health <= 0 && isRunning)
         {
+            ANA_Player.OnPlayerDeath();
             isFatigue = true;
             player.actionLine.SetLineState(2);
+            isRunning = false;
+            Debug.Log("yayyyyyyy");
         }
 
         if (barrierDuration > 0) barrier.SetActive(true);
