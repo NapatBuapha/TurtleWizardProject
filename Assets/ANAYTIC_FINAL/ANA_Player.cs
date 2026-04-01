@@ -183,8 +183,6 @@ public class ANA_Player : MonoBehaviour
             Debug.Log("not enough coin");
         }
     }
-    
-    /*
     public void ExitShop()
     {
         if (!ShopMenu.activeInHierarchy)
@@ -199,5 +197,5 @@ public class ANA_Player : MonoBehaviour
             };
             AnalyticsService.Instance.RecordEvent(exampleEvent);
         }
-    }*/
+    }
 }
