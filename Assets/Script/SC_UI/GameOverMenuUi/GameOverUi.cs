@@ -28,7 +28,15 @@ public class GameOverUi : MonoBehaviour
         ANA_Player.WinCounter = 0;
         ANA_Player.LoseCounter = 0;
 
-        Debug.Log("Reset");
+        Debug.Log("Reset" + ANA_Player.AdOpportunity);
+        
+        //send data here
+        CustomEvent exampleEvent = new CustomEvent("ANA_UnityAd")
+        {
+            {"Analytics_Final_AdOpportunity", ANA_Player.AdOpportunity} ,
+            {"Analytics_Final_AdCompleted", ANA_Player.AdCompleted}
+        };
+        AnalyticsService.Instance.RecordEvent(exampleEvent);
     }
 
         public void GameOver()
@@ -52,7 +60,7 @@ public class GameOverUi : MonoBehaviour
 
         uiGroup.SetActive(false);
         isActive = false;
-
+        
         //send data here
         CustomEvent exampleEvent = new CustomEvent("ANA_UnityAd")
         {

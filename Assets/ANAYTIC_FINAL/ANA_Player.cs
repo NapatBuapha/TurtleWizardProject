@@ -31,6 +31,7 @@ public class ANA_Player : MonoBehaviour
     public TextMeshProUGUI textMeshProUGUI;
     public GameObject ShopMenu;
     public bool Switch = true;
+    public string ItemName;
 
     void Start()
     {
@@ -62,11 +63,13 @@ public class ANA_Player : MonoBehaviour
             case "Level2":
                 Debug.Log("Entered Level2");
                 LevelId = 2;
+                coinLeft += 10;
                 break;
 
             case "Level3":
                 Debug.Log("Entered Level3");
                 LevelId = 3;
+                coinLeft += 10;
                 break;
 
         //track failed reason
@@ -137,6 +140,7 @@ public class ANA_Player : MonoBehaviour
     {
         if(coinLeft >= 3)
         {
+            ItemName = "Add 20 Max Health";
             coinLeft -= 3;
             textMeshProUGUI.text = "coin left : " + coinLeft;
             PurchaseTracker++;
@@ -149,6 +153,38 @@ public class ANA_Player : MonoBehaviour
         }
     }
 
+    public void PurchaseRedItem()
+    {
+        if (coinLeft >= 10)
+        {
+            ItemName = "Fire Skill";
+            coinLeft -= 10;
+            textMeshProUGUI.text = "coin left : " + coinLeft;
+            PurchaseTracker++;
+            Debug.Log($"player purchased {PurchaseTracker} element item");
+        }
+        else
+        {
+            Debug.Log("not enough coin");
+        }
+    }
+    public void PurchaseBlueItem()
+    {
+        if (coinLeft >= 10)
+        {
+            ItemName = "Water Skill";
+            coinLeft -= 10;
+            textMeshProUGUI.text = "coin left : " + coinLeft;
+            PurchaseTracker++;
+            Debug.Log($"player purchased {PurchaseTracker} element item");
+        }
+        else
+        {
+            Debug.Log("not enough coin");
+        }
+    }
+    
+    /*
     public void ExitShop()
     {
         if (!ShopMenu.activeInHierarchy)
@@ -158,10 +194,10 @@ public class ANA_Player : MonoBehaviour
             //send data here
             CustomEvent exampleEvent = new CustomEvent("ANA_Store")
             {
-                {"Analytics_Final_ItemName", "Add 20 Max Health"} ,
+                {"Analytics_Final_ItemName", ItemName} ,
                 {"Analytics_Final_NumOfPurchase", PurchaseTracker}
             };
             AnalyticsService.Instance.RecordEvent(exampleEvent);
         }
-    }
+    }*/
 }
